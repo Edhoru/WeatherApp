@@ -8,6 +8,10 @@
 
 import Foundation
 
-struct Place {
+struct Place: Codable {
     let name: String
+    let main: Main
+    let weather: [Weather]
+    let clouds: Clouds
+    let wind: Wind
 }

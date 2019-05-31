@@ -41,6 +41,7 @@ class PlacesViewController: UIViewController {
     
     //Actions
     @objc func tapAction() {
+        print(places)
         guard let place = self.places.first else {
             return
         }
