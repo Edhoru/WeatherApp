@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4675224D22A0C24C00F9A4E2 /* PlacesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675224822A0C24B00F9A4E2 /* PlacesBuilder.swift */; };
+		4675224E22A0C24C00F9A4E2 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675224922A0C24C00F9A4E2 /* PlacesViewController.swift */; };
+		4675224F22A0C24C00F9A4E2 /* PlacesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675224A22A0C24C00F9A4E2 /* PlacesPresenter.swift */; };
+		4675225022A0C24C00F9A4E2 /* PlacesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675224B22A0C24C00F9A4E2 /* PlacesRouter.swift */; };
+		4675225122A0C24C00F9A4E2 /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675224C22A0C24C00F9A4E2 /* PlacesInteractor.swift */; };
+		4675225522A0C28800F9A4E2 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675225422A0C28800F9A4E2 /* Place.swift */; };
+		4675225C22A0CC0D00F9A4E2 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675225722A0CC0D00F9A4E2 /* DetailsViewController.swift */; };
+		4675225D22A0CC0D00F9A4E2 /* DetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675225822A0CC0D00F9A4E2 /* DetailsInteractor.swift */; };
+		4675225E22A0CC0D00F9A4E2 /* DetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675225922A0CC0D00F9A4E2 /* DetailsBuilder.swift */; };
+		4675225F22A0CC0D00F9A4E2 /* DetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675225A22A0CC0D00F9A4E2 /* DetailsRouter.swift */; };
+		4675226022A0CC0D00F9A4E2 /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675225B22A0CC0D00F9A4E2 /* DetailsPresenter.swift */; };
+		4675226222A0CF7B00F9A4E2 /* PlacesDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675226122A0CF7B00F9A4E2 /* PlacesDataService.swift */; };
 		46E0858222A0B5AA000F1F95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E0858122A0B5AA000F1F95 /* AppDelegate.swift */; };
 		46E0858922A0B5AC000F1F95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46E0858822A0B5AC000F1F95 /* Assets.xcassets */; };
 		46E0858C22A0B5AC000F1F95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46E0858A22A0B5AC000F1F95 /* LaunchScreen.storyboard */; };
@@ -14,6 +26,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4675224822A0C24B00F9A4E2 /* PlacesBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesBuilder.swift; sourceTree = "<group>"; };
+		4675224922A0C24C00F9A4E2 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
+		4675224A22A0C24C00F9A4E2 /* PlacesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesPresenter.swift; sourceTree = "<group>"; };
+		4675224B22A0C24C00F9A4E2 /* PlacesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesRouter.swift; sourceTree = "<group>"; };
+		4675224C22A0C24C00F9A4E2 /* PlacesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
+		4675225422A0C28800F9A4E2 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		4675225722A0CC0D00F9A4E2 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		4675225822A0CC0D00F9A4E2 /* DetailsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsInteractor.swift; sourceTree = "<group>"; };
+		4675225922A0CC0D00F9A4E2 /* DetailsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsBuilder.swift; sourceTree = "<group>"; };
+		4675225A22A0CC0D00F9A4E2 /* DetailsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsRouter.swift; sourceTree = "<group>"; };
+		4675225B22A0CC0D00F9A4E2 /* DetailsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
+		4675226122A0CF7B00F9A4E2 /* PlacesDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesDataService.swift; sourceTree = "<group>"; };
 		46E0857E22A0B5AA000F1F95 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46E0858122A0B5AA000F1F95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46E0858822A0B5AC000F1F95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -36,6 +60,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4675224722A0C23200F9A4E2 /* Places */ = {
+			isa = PBXGroup;
+			children = (
+				4675224822A0C24B00F9A4E2 /* PlacesBuilder.swift */,
+				4675224C22A0C24C00F9A4E2 /* PlacesInteractor.swift */,
+				4675224A22A0C24C00F9A4E2 /* PlacesPresenter.swift */,
+				4675224B22A0C24C00F9A4E2 /* PlacesRouter.swift */,
+				4675224922A0C24C00F9A4E2 /* PlacesViewController.swift */,
+				4675225622A0CBC300F9A4E2 /* Details */,
+			);
+			path = Places;
+			sourceTree = "<group>";
+		};
+		4675225222A0C26D00F9A4E2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4675225322A0C27600F9A4E2 /* Models */,
+				4675226322A0CF7E00F9A4E2 /* Services */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4675225322A0C27600F9A4E2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4675225422A0C28800F9A4E2 /* Place.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4675225622A0CBC300F9A4E2 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				4675225922A0CC0D00F9A4E2 /* DetailsBuilder.swift */,
+				4675225822A0CC0D00F9A4E2 /* DetailsInteractor.swift */,
+				4675225B22A0CC0D00F9A4E2 /* DetailsPresenter.swift */,
+				4675225A22A0CC0D00F9A4E2 /* DetailsRouter.swift */,
+				4675225722A0CC0D00F9A4E2 /* DetailsViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		4675226322A0CF7E00F9A4E2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4675226122A0CF7B00F9A4E2 /* PlacesDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		46E0857522A0B5AA000F1F95 = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +135,8 @@
 				46E0858822A0B5AC000F1F95 /* Assets.xcassets */,
 				46E0858A22A0B5AC000F1F95 /* LaunchScreen.storyboard */,
 				46E0858D22A0B5AC000F1F95 /* Info.plist */,
+				4675225222A0C26D00F9A4E2 /* Helpers */,
+				4675224722A0C23200F9A4E2 /* Places */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -79,7 +155,6 @@
 				D4B059327E8BF5B207C99CA2 /* Pods-WeatherApp.debug.xcconfig */,
 				C13F9F7CCAC53A753C50DC0E /* Pods-WeatherApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -204,7 +279,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4675226222A0CF7B00F9A4E2 /* PlacesDataService.swift in Sources */,
+				4675225F22A0CC0D00F9A4E2 /* DetailsRouter.swift in Sources */,
+				4675225E22A0CC0D00F9A4E2 /* DetailsBuilder.swift in Sources */,
+				4675224F22A0C24C00F9A4E2 /* PlacesPresenter.swift in Sources */,
+				4675225D22A0CC0D00F9A4E2 /* DetailsInteractor.swift in Sources */,
+				4675224E22A0C24C00F9A4E2 /* PlacesViewController.swift in Sources */,
 				46E0858222A0B5AA000F1F95 /* AppDelegate.swift in Sources */,
+				4675225C22A0CC0D00F9A4E2 /* DetailsViewController.swift in Sources */,
+				4675225022A0C24C00F9A4E2 /* PlacesRouter.swift in Sources */,
+				4675225122A0C24C00F9A4E2 /* PlacesInteractor.swift in Sources */,
+				4675225522A0C28800F9A4E2 /* Place.swift in Sources */,
+				4675224D22A0C24C00F9A4E2 /* PlacesBuilder.swift in Sources */,
+				4675226022A0CC0D00F9A4E2 /* DetailsPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
