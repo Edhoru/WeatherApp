@@ -12,7 +12,7 @@ import UIKit
 protocol PlacesViewable: class {
     func display(places: [Place])
     func display(new place: Place)
-    func display(error: String)
+    func display(errorMessage: String)
 }
 
 class PlacesViewController: UIViewController {
@@ -85,7 +85,12 @@ extension PlacesViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let place = places[indexPath.row]
-        presenter?.select(place: place)
+        
+        if place.isEmpty == true {
+            presenter?.locateUser()
+        } else {
+            presenter?.select(place: place)
+        }
     }
 }
 
@@ -99,11 +104,12 @@ extension PlacesViewController: PlacesViewable {
     }
     
     func display(new place: Place) {
-        print(place)
+        places[0] = place
+        collectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])        
     }
     
-    func display(error: String) {
-        print(error)
+    func display(errorMessage: String) {
+        print(errorMessage)
     }
     
 }

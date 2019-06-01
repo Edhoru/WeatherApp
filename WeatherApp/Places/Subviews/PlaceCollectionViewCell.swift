@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class PlaceCollectionViewCell: UICollectionViewCell {
     
@@ -21,6 +22,13 @@ class PlaceCollectionViewCell: UICollectionViewCell {
     
     
     //UI
+    let emptyLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        return label
+    }()
+    
     let nameLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,8 +51,38 @@ class PlaceCollectionViewCell: UICollectionViewCell {
     
     
     func setup(place: Place) {
+        if place.isEmpty == true {
+            displayEmpty()
+        } else {
+            display(place: place)
+        }
+    }
+    
+    private func displayEmpty() {
+        let status = CLLocationManager.authorizationStatus()
+        
+        switch status {
+        case .authorizedWhenInUse, .notDetermined, .authorizedAlways:
+            emptyLabel.text = "Tap to add your location"
+        case .restricted, .denied:
+            emptyLabel.text = "Enable location in settings"
+        @unknown default:
+            emptyLabel.text = "Enable location in settings"
+        }
+        
+        addSubview(emptyLabel)
+        
+        NSLayoutConstraint.activate([
+            emptyLabel.topAnchor.constraint(equalTo: topAnchor),
+            emptyLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.space),
+            emptyLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.space),
+            emptyLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    private func display(place: Place) {
         self.place = place
-        print(place)
+        
         nameLabel.text = place.name
         temperatureLabel.text = "\(place.main.temp)º"
         

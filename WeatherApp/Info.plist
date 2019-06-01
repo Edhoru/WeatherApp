@@ -39,5 +39,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The App needs your location to add your city</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Usage description</string>
 </dict>
 </plist>

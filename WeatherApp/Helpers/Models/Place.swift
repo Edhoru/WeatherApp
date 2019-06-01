@@ -15,6 +15,12 @@ struct Place: Codable {
     let weather: [Weather]
     let clouds: Clouds
     let wind: Wind
+    
+    var isEmpty: Bool {
+        get {
+            return id == 0 && name == ""
+        }
+    }
 }
 
 extension Place {

@@ -12,6 +12,7 @@ import Foundation
 protocol PlacesPresentable: class {
     func viewDidLoad() -> Void
     func select(place: Place)
+    func locateUser()
 }
 
 //Interactor -> Presenter
@@ -22,9 +23,11 @@ protocol PlacesInteractorOutPut: class {
 
 class PlacesPresenter {
     
+    //Properties
     weak var view: PlacesViewable?
     var interactor: PlacesInteractorInput
     var router: PlacesRouting
+    var userLocationManager: UserLocation?
     
     init(view: PlacesViewable, interactor: PlacesInteractorInput, router: PlacesRouting) {
         self.view = view
@@ -51,16 +54,42 @@ extension PlacesPresenter: PlacesPresentable {
 extension PlacesPresenter: PlacesInteractorOutPut {
     
     func didFetch(places: [Place]) {
+        guard places.count > 0 else {
+            view?.display(errorMessage: "No places found")
+            return
+        }
+        
         view?.display(places: places)
     }
     
     func didFetch(place: Place?) {
         guard let place = place else {
-            view?.display(error: "No place found")
+            view?.display(errorMessage: "No place found for location")
             return
         }
         
         view?.display(new: place)
     }
     
+    func locateUser() {
+        userLocationManager = UserLocation()
+        userLocationManager?.get(delegate: self)
+    }
+    
+}
+
+
+
+
+//UserLocation
+extension PlacesPresenter: UserLocationDelegate {
+    
+    func present(errorMessage: String) {
+        view?.display(errorMessage: errorMessage)
+    }
+    
+    
+    func present(lat: Double, lon: Double) {        
+        interactor.getPlace(lat: lat, lon: lon)
+    }
 }

@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-import CoreLocation
 
 class PlacesDataService {
     
@@ -26,15 +25,16 @@ class PlacesDataService {
                              "units": temperatureUnit] as [String : Any]
     
     //Methods
-    static func getBy(location: CLLocation, _ completion: @escaping (_ place: Place?, Error?) -> Void) {
+    static func getBy(lat: Double, lon: Double, _ completion: @escaping (_ place: Place?, Error?) -> Void) {
         guard let url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             completion(nil, nil)
             return
         }
         
         var parameters = baseParameters
-        let idParameters = ["id": "524901,703448,2643743"]
-        parameters.merge(dict: idParameters)
+        let extraParameters =  ["lat" : lat,
+                                "lon":  lon]
+        parameters.merge(dict: extraParameters)
         
         Alamofire.request(url, method: .get, parameters: parameters).responseJSON { (response) in
             guard let data = response.data else {
@@ -42,10 +42,10 @@ class PlacesDataService {
                 return
             }
             
-//            do {
-//                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                print(a)
-//            }
+            do {
+                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(a)
+            }
             
             do {
                 let place = try JSONDecoder().decode(Place.self, from: data)

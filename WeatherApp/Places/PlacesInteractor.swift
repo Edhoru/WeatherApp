@@ -7,17 +7,20 @@
 //
 
 import Foundation
-import CoreLocation
 
 //Presenter -> Interactor
 protocol PlacesInteractorInput {
     func getPlaces()
-    func getPlace(location: CLLocation)
+    func getPlace(lat: Double, lon: Double)
 }
 
 class PlacesInteractor {
     
+    //Viper
     weak var presenter: PlacesInteractorOutPut?
+    
+    //Properties
+    var isProcessingLocation = false
     
 }
 
@@ -30,8 +33,13 @@ extension PlacesInteractor: PlacesInteractorInput {
         
     }
     
-    func getPlace(location: CLLocation) {
-        PlacesDataService.getBy(location: location) { (place, error) in
+    func getPlace(lat: Double, lon: Double) {        
+        guard isProcessingLocation == false else {
+            return
+        }
+        
+        isProcessingLocation = true
+        PlacesDataService.getBy(lat: lat, lon: lon) { (place, error) in
             self.presenter?.didFetch(place: place)
         }
     }
