@@ -16,3 +16,16 @@ struct Place: Codable {
     let clouds: Clouds
     let wind: Wind
 }
+
+extension Place {
+    
+    static func empty() -> Place {
+        let emptyPlace = Place(id: 0, name: "",
+                               main: Main(humidity: 0, pressure: 0, temp: 0),
+                               weather: [],
+                               clouds: Clouds(all: 0),
+                               wind: Wind(deg: 0, speed: 0))
+        return emptyPlace
+    }
+}
+

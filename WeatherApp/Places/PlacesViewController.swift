@@ -11,6 +11,8 @@ import UIKit
 // Presenter -> View
 protocol PlacesViewable: class {
     func display(places: [Place])
+    func display(new place: Place)
+    func display(error: String)
 }
 
 class PlacesViewController: UIViewController {
@@ -94,6 +96,14 @@ extension PlacesViewController: PlacesViewable {
     func display(places: [Place]) {
         self.places = places
         collectionView.reloadData()
+    }
+    
+    func display(new place: Place) {
+        print(place)
+    }
+    
+    func display(error: String) {
+        print(error)
     }
     
 }

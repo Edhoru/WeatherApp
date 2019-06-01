@@ -27,6 +27,8 @@
 		4675226B22A0F0CA00F9A4E2 /* Wind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4675226A22A0F0CA00F9A4E2 /* Wind.swift */; };
 		469E76B722A2C11300987EFB /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E76B622A2C11300987EFB /* PlaceCollectionViewCell.swift */; };
 		469E76B922A2C36D00987EFB /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E76B822A2C36D00987EFB /* ImageService.swift */; };
+		469E76BC22A2CB5F00987EFB /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E76BB22A2CB5F00987EFB /* Dictionary.swift */; };
+		469E76BE22A2D18200987EFB /* PlacesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E76BD22A2D18200987EFB /* PlacesList.swift */; };
 		46D93C9322A0F3A8004C7BE5 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D93C9222A0F3A8004C7BE5 /* City.swift */; };
 		46E0858222A0B5AA000F1F95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E0858122A0B5AA000F1F95 /* AppDelegate.swift */; };
 		46E0858922A0B5AC000F1F95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46E0858822A0B5AC000F1F95 /* Assets.xcassets */; };
@@ -55,6 +57,8 @@
 		4675226A22A0F0CA00F9A4E2 /* Wind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wind.swift; sourceTree = "<group>"; };
 		469E76B622A2C11300987EFB /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		469E76B822A2C36D00987EFB /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		469E76BB22A2CB5F00987EFB /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		469E76BD22A2D18200987EFB /* PlacesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesList.swift; sourceTree = "<group>"; };
 		46D93C9222A0F3A8004C7BE5 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		46E0857E22A0B5AA000F1F95 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46E0858122A0B5AA000F1F95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,8 +99,9 @@
 		4675225222A0C26D00F9A4E2 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				4675225322A0C27600F9A4E2 /* Models */,
 				4675226322A0CF7E00F9A4E2 /* Data */,
+				469E76BA22A2CB5000987EFB /* Extensions */,
+				4675225322A0C27600F9A4E2 /* Models */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -104,12 +109,13 @@
 		4675225322A0C27600F9A4E2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				46D93C9222A0F3A8004C7BE5 /* City.swift */,
 				4675226822A0F0B200F9A4E2 /* Clouds.swift */,
 				4675226622A0F09500F9A4E2 /* Main.swift */,
 				4675225422A0C28800F9A4E2 /* Place.swift */,
+				469E76BD22A2D18200987EFB /* PlacesList.swift */,
 				4675226422A0F08000F9A4E2 /* Weather.swift */,
 				4675226A22A0F0CA00F9A4E2 /* Wind.swift */,
-				46D93C9222A0F3A8004C7BE5 /* City.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -141,6 +147,14 @@
 				469E76B622A2C11300987EFB /* PlaceCollectionViewCell.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		469E76BA22A2CB5000987EFB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				469E76BB22A2CB5F00987EFB /* Dictionary.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		46D93C9422A0F472004C7BE5 /* Services */ = {
@@ -333,6 +347,7 @@
 			files = (
 				4654159E22A0F51C00212A32 /* CitiesDataService.swift in Sources */,
 				4675226722A0F09500F9A4E2 /* Main.swift in Sources */,
+				469E76BE22A2D18200987EFB /* PlacesList.swift in Sources */,
 				4675226922A0F0B200F9A4E2 /* Clouds.swift in Sources */,
 				46D93C9322A0F3A8004C7BE5 /* City.swift in Sources */,
 				4675226222A0CF7B00F9A4E2 /* PlacesDataService.swift in Sources */,
@@ -346,6 +361,7 @@
 				46E0858222A0B5AA000F1F95 /* AppDelegate.swift in Sources */,
 				4675225C22A0CC0D00F9A4E2 /* DetailsViewController.swift in Sources */,
 				4675225022A0C24C00F9A4E2 /* PlacesRouter.swift in Sources */,
+				469E76BC22A2CB5F00987EFB /* Dictionary.swift in Sources */,
 				4675225122A0C24C00F9A4E2 /* PlacesInteractor.swift in Sources */,
 				469E76B722A2C11300987EFB /* PlaceCollectionViewCell.swift in Sources */,
 				4675225522A0C28800F9A4E2 /* Place.swift in Sources */,

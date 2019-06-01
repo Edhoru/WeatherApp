@@ -17,6 +17,7 @@ protocol PlacesPresentable: class {
 //Interactor -> Presenter
 protocol PlacesInteractorOutPut: class {
     func didFetch(places: [Place])
+    func didFetch(place: Place?)
 }
 
 class PlacesPresenter {
@@ -51,6 +52,15 @@ extension PlacesPresenter: PlacesInteractorOutPut {
     
     func didFetch(places: [Place]) {
         view?.display(places: places)
+    }
+    
+    func didFetch(place: Place?) {
+        guard let place = place else {
+            view?.display(error: "No place found")
+            return
+        }
+        
+        view?.display(new: place)
     }
     
 }
