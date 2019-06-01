@@ -21,6 +21,18 @@ class PlacesViewController: UIViewController {
     //Properties
     var places: [Place] = []
     
+    // UI
+    var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 120)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .white
+        collectionView.register(PlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,29 +44,56 @@ class PlacesViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .green
         
-        print("Hello viper")
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-        view.addGestureRecognizer(tap)
-        view.isUserInteractionEnabled = true
-    }
-    
-    //Actions
-    @objc func tapAction() {
-        print(places)
-        guard let place = self.places.first else {
-            return
-        }
+        view.addSubview(collectionView)
         
-        presenter?.select(place: place)
+        let safeArea = view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            ])
     }
 
 }
 
+//Collection view
+
+extension PlacesViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return places.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let place = places[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PlaceCollectionViewCell
+        cell.setup(place: place)
+        return cell
+    }
+    
+}
+
+
+extension PlacesViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let place = places[indexPath.row]
+        presenter?.select(place: place)
+    }
+}
+
+
+//Viper
 extension PlacesViewController: PlacesViewable {
     
     func display(places: [Place]) {
         self.places = places
+        collectionView.reloadData()
     }
     
 }
