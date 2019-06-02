@@ -13,11 +13,17 @@ let imageCache = NSCache<NSString, UIImage>()
 
 class ImageService {
     
+    enum Kind: String {
+        case icon = "https://api.openweathermap.org/img/w/{customValue}.png"
+    }
+    
     var imageUrl: URL?
     
-    func findImage(with url: URL, completion: @escaping (UIImage?) -> Void) {
-        
-        imageUrl = url
+    func findImage(kind: Kind, value: String, completion: @escaping (UIImage?) -> Void) {        
+        guard let url = URL(string: kind.rawValue.replacingOccurrences(of: "{customValue}", with: value)) else {
+            completion(nil)
+            return
+        }
         
         if let imageFromCache = imageCache.object(forKey: url.absoluteString as NSString) {
             completion(imageFromCache)
@@ -34,10 +40,8 @@ class ImageService {
             if response is HTTPURLResponse,
                 let imageData = data,
                 let imageToCache = UIImage(data: imageData) {
-                if self.imageUrl == url {
-                    imageCache.setObject(imageToCache, forKey: url.absoluteString as NSString)
-                    completion(imageToCache)
-                }
+                imageCache.setObject(imageToCache, forKey: url.absoluteString as NSString)
+                completion(imageToCache)
             } else {
                 print("Couldn't get response code for some reason")
             }

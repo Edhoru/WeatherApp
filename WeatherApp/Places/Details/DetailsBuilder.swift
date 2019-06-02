@@ -10,8 +10,8 @@ import UIKit
 
 class DetailsBuilder {
     
-    static func build() -> UIViewController {
-        let view = DetailsViewController()
+    static func build(place: Place) -> UIViewController {
+        let view = DetailsViewController(place: place)
         let interactor = DetailsInteractor()
         let router = DetailsRouter(view: view)
         let presenter = DetailsPresenter(view: view,

@@ -86,11 +86,9 @@ class PlaceCollectionViewCell: UICollectionViewCell {
         nameLabel.text = place.name
         temperatureLabel.text = "\(place.main.temp)º"
         
-        if let weather = place.weather.first,
-            let url = URL(string: urlBase.replacingOccurrences(of: "{icon}", with: weather.icon)) {
-            
+        if let weather = place.weather.first {
             let imageService = ImageService()
-            imageService.findImage(with: url) { (image) in
+            imageService.findImage(kind: .icon, value: weather.icon) { (image) in
                 DispatchQueue.main.async {
                     self.iconImageView.image = image
                 }

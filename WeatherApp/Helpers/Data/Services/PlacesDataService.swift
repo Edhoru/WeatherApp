@@ -76,10 +76,10 @@ class PlacesDataService {
                 return
             }
             
-//            do {
-//                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                print(a as Any)
-//            }
+            do {
+                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print(a as Any)
+            }
             
             
             do {

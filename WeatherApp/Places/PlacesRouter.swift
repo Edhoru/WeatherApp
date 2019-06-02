@@ -26,7 +26,7 @@ class PlacesRouter {
 extension PlacesRouter: PlacesRouting {
     
     func routeToDetails(_ place: Place) {
-        let detailsView = DetailsBuilder.build()
+        let detailsView = DetailsBuilder.build(place: place)
         viewController.present(detailsView, animated: true, completion: nil)
     }
 }
