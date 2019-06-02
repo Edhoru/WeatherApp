@@ -55,6 +55,8 @@ class DetailsViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 76)
+        label.shadowColor = UIColor.black
+        label.shadowOffset = CGSize(width: 0, height: -1)
         return label
     }()
     
@@ -79,7 +81,6 @@ class DetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.numberOfLines = 0
-        label.textAlignment = .center
         return label
     }()
     
@@ -162,7 +163,7 @@ class DetailsViewController: UIViewController {
             backgroundImageView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -Constants.space * 6),
             
             closeButton.heightAnchor.constraint(equalToConstant: Constants.closeWidth),
             closeButton.widthAnchor.constraint(equalToConstant: Constants.closeWidth),
@@ -173,7 +174,6 @@ class DetailsViewController: UIViewController {
             nameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Constants.space),
             
-            temperatureLabel.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 ),
             temperatureLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 ),
             temperatureLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Constants.space),
             
@@ -216,13 +216,7 @@ class DetailsViewController: UIViewController {
         
         //Add info
         if let weather = place.weather.first {
-            let imageService = ImageService()
-            imageService.findImage(kind: .icon, value: weather.icon) { (image) in
-                DispatchQueue.main.async {
-                    self.iconImageView.image = image
-                }
-            }
-            descriptionLabel.text = weather.description
+            descriptionLabel.text = weather.description.capitalizeFirst
             
             let iconName = String(weather.icon.dropLast())
             if let image = UIImage(named: weather.icon) {
@@ -233,11 +227,11 @@ class DetailsViewController: UIViewController {
         }
         
         nameLabel.text = place.name
-        temperatureLabel.text = "\(Int(place.main.temp))º"
-        temperatureMinLabel.text = "\(Int(place.main.temp))º"
-        temperatureMaxLabel.text = "\(Int(place.main.temp))º"
-        windLabel.text = "\(place.wind.speed)"
-        cloudLabel.text = "\(place.clouds.all)"
+        temperatureLabel.text = "\(Int(place.main.temp))".display(unit: .temperature)
+        temperatureMinLabel.text = "\(Int(place.main.temp))".display(unit: .temperature)
+        temperatureMaxLabel.text = "\(Int(place.main.temp))".display(unit: .temperature)
+        windLabel.text = "\(place.wind.speed)".display(unit: .wind)
+        cloudLabel.text = "\(place.clouds.all)".display(unit: .cloud)
         
     }
     

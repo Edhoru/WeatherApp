@@ -27,11 +27,11 @@ class PlacesViewController: UIViewController {
     var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 120)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 100)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .background
         collectionView.register(PlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         return collectionView
     }()
@@ -44,7 +44,7 @@ class PlacesViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .green
+        view.backgroundColor = .background
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -55,8 +55,8 @@ class PlacesViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
             ])
     }

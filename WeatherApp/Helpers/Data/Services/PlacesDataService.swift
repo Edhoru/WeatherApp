@@ -17,8 +17,8 @@ class PlacesDataService {
     static private let urlGroup = "https://api.openweathermap.org/data/2.5/group"
     static var temperatureUnit: String {
         get {
-            let metric = NSLocale.current.usesMetricSystem == true ? "metric" : "imperial"
-            return metric
+            let unitSystem = NSLocale.current.usesMetricSystem == true ? "metric" : "imperial"
+            return unitSystem
         }
     }
     static let baseParameters = ["APPID": key,
@@ -42,10 +42,10 @@ class PlacesDataService {
                 return
             }
             
-            do {
-                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print(a)
-            }
+//            do {
+//                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                print(a)
+//            }
             
             do {
                 let place = try JSONDecoder().decode(Place.self, from: data)

@@ -51,6 +51,8 @@ class PlaceCollectionViewCell: UICollectionViewCell {
     
     
     func setup(place: Place) {
+        backgroundColor = .white
+        
         if place.isEmpty == true {
             displayEmpty()
         } else {
@@ -83,8 +85,8 @@ class PlaceCollectionViewCell: UICollectionViewCell {
     private func display(place: Place) {
         self.place = place
         
-        nameLabel.text = place.name
-        temperatureLabel.text = "\(place.main.temp)º"
+        nameLabel.text = place.name.capitalizeFirst
+        temperatureLabel.text = "\(place.main.temp)".display(unit: .temperature)
         
         if let weather = place.weather.first {
             let imageService = ImageService()
@@ -95,8 +97,6 @@ class PlaceCollectionViewCell: UICollectionViewCell {
             }
         }
         
-        backgroundColor = .white
-        
         addSubview(nameLabel)
         addSubview(temperatureLabel)
         addSubview(iconImageView)
@@ -104,7 +104,7 @@ class PlaceCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: topAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.space),
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.space),
             
             temperatureLabel.widthAnchor.constraint(equalToConstant: Constants.iconWidth),
             temperatureLabel.topAnchor.constraint(equalTo: topAnchor),
@@ -113,7 +113,7 @@ class PlaceCollectionViewCell: UICollectionViewCell {
             
             iconImageView.widthAnchor.constraint(equalToConstant: Constants.iconWidth),
             iconImageView.topAnchor.constraint(equalTo: topAnchor),
-            iconImageView.leadingAnchor.constraint(equalTo: temperatureLabel.trailingAnchor),
+            iconImageView.leadingAnchor.constraint(equalTo: temperatureLabel.trailingAnchor, constant: Constants.space),
             iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.space),
             iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
