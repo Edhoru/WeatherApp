@@ -41,6 +41,9 @@ extension PlacesInteractor: PlacesInteractorInput {
         isProcessingLocation = true
         PlacesDataService.getBy(lat: lat, lon: lon) { (place, error) in
             self.presenter?.didFetch(place: place)
+            
+            guard let place = place else { return }
+            CitiesDataService.saveCurrentCity(place: place)
         }
     }
 }

@@ -77,7 +77,7 @@ class PlaceCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             emptyLabel.topAnchor.constraint(equalTo: topAnchor),
             emptyLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.space),
-            emptyLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.space),
+            emptyLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.space),
             emptyLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }

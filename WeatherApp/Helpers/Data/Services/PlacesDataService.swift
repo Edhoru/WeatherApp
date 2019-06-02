@@ -22,7 +22,7 @@ class PlacesDataService {
         }
     }
     static let baseParameters = ["APPID": key,
-                             "units": temperatureUnit] as [String : Any]
+                                 "units": temperatureUnit] as [String : Any]
     
     //Methods
     static func getBy(lat: Double, lon: Double, _ completion: @escaping (_ place: Place?, Error?) -> Void) {
@@ -42,10 +42,10 @@ class PlacesDataService {
                 return
             }
             
-//            do {
-//                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                print(a)
-//            }
+            //            do {
+            //                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            //                print(a)
+            //            }
             
             do {
                 let place = try JSONDecoder().decode(Place.self, from: data)
@@ -66,43 +66,40 @@ class PlacesDataService {
         }
         
         var parameters = baseParameters
-        let idsArray = staticCitiesId.map({ "\($0.id)" })
-        let extraParameters = ["id": idsArray.joined(separator: ",")]
-        parameters.merge(dict: extraParameters)
-        
-        Alamofire.request(url, method: .get, parameters: parameters).responseJSON { (response) in
-            guard let data = response.data else {
-                completion([], nil)
-                return
-            }
+        CitiesDataService.getStaticCities { (staticCities) in
+            let idsArray = staticCities.map({ "\($0.id)" })
+            let extraParameters = ["id": idsArray.joined(separator: ",")]
+            parameters.merge(dict: extraParameters)
             
-            do {
-                let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print(a as Any)
-            }
-            
-            
-            do {
-                let placesListFetched = try JSONDecoder().decode(PlacesList.self, from: data)
-                var places = placesListFetched.list
-                
-                
-                if staticCitiesId.filter({ $0.current == true }).count == 0 {
-                    places.insert(Place.empty(), at: 0)
+            Alamofire.request(url, method: .get, parameters: parameters).responseJSON { (response) in
+                guard let data = response.data else {
+                    completion([], nil)
+                    return
                 }
-                completion(places, nil)
+                //Debug info
+//                do {
+//                    let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(a as Any)
+//                }
                 
                 
-            } catch let placeError {
-                print(placeError)
-                completion([], placeError)
+                do {
+                    let placesListFetched = try JSONDecoder().decode(PlacesList.self, from: data)
+                    var places = placesListFetched.list
+                    
+                    if staticCities.filter({ $0.current == true }).count == 0 {
+                        places.insert(Place.empty(), at: 0)
+                    }
+                    
+                    completion(places, nil)
+                    
+                    
+                } catch let placeError {
+                    completion([], placeError)
+                }
             }
             
         }
     }
     
-    static let staticCitiesId = [City(id: 2643743, name: "London", country: "GB", current: false),
-                                 City(id: 1850147, name: "Tokyo", country: "JO", current: false)]
-        
 }
-
