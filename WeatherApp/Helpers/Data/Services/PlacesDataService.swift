@@ -66,7 +66,7 @@ class PlacesDataService {
         }
         
         var parameters = baseParameters
-        CitiesDataService.getStaticCities { (staticCities) in
+        CitiesDataService.getStaticCities { (staticCities, currentCityId) in
             let idsArray = staticCities.map({ "\($0.id)" })
             let extraParameters = ["id": idsArray.joined(separator: ",")]
             parameters.merge(dict: extraParameters)
@@ -77,21 +77,19 @@ class PlacesDataService {
                     return
                 }
                 //Debug info
-//                do {
-//                    let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                    print(a as Any)
-//                }
+                //                do {
+                //                    let a = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                //                    print(a as Any)
+                //                }
                 
                 
                 do {
                     let placesListFetched = try JSONDecoder().decode(PlacesList.self, from: data)
-                    var places = placesListFetched.list
-                    
-                    if staticCities.filter({ $0.current == true }).count == 0 {
-                        places.insert(Place.empty(), at: 0)
-                    }
-                    
-                    completion(places, nil)
+                    let places = placesListFetched.list
+                    let placesSorted = places.sorted(by: { (p1: Place, p2: Place) -> Bool in
+                        return p1.id == currentCityId
+                    })
+                    completion(placesSorted, nil)
                     
                     
                 } catch let placeError {
@@ -103,3 +101,4 @@ class PlacesDataService {
     }
     
 }
+

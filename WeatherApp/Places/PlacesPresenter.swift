@@ -13,12 +13,14 @@ protocol PlacesPresentable: class {
     func viewDidLoad() -> Void
     func select(place: Place)
     func locateUser()
+    func removeUsersPlace()
 }
 
 //Interactor -> Presenter
 protocol PlacesInteractorOutPut: class {
     func didFetch(places: [Place])
     func didFetch(place: Place?)
+    func didDeleteUsersCity(id: Int)
 }
 
 class PlacesPresenter {
@@ -48,6 +50,14 @@ extension PlacesPresenter: PlacesPresentable {
         router.routeToDetails(place)
     }
     
+    func locateUser() {
+        userLocationManager = UserLocation()
+        userLocationManager?.get(delegate: self)
+    }
+    
+    func removeUsersPlace() {
+        interactor.deleteUsersCity()
+    }
 }
 
 
@@ -71,14 +81,11 @@ extension PlacesPresenter: PlacesInteractorOutPut {
         view?.display(new: place)
     }
     
-    func locateUser() {
-        userLocationManager = UserLocation()
-        userLocationManager?.get(delegate: self)
+    func didDeleteUsersCity(id: Int) {
+        view?.removeCity(id: id)
     }
     
 }
-
-
 
 
 //UserLocation

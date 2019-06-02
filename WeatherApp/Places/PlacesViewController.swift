@@ -13,6 +13,7 @@ protocol PlacesViewable: class {
     func display(places: [Place])
     func display(new place: Place)
     func display(errorMessage: String)
+    func removeCity(id: Int)
 }
 
 class PlacesViewController: UIViewController {
@@ -36,6 +37,14 @@ class PlacesViewController: UIViewController {
         return collectionView
     }()
     
+    let actionButton : UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.textAlignment = .center
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,6 +59,7 @@ class PlacesViewController: UIViewController {
         collectionView.delegate = self
         
         view.addSubview(collectionView)
+        view.addSubview(actionButton)
         
         let safeArea = view.safeAreaLayoutGuide
         
@@ -57,10 +67,42 @@ class PlacesViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            
+            actionButton.heightAnchor.constraint(equalToConstant: 44),
+            actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            actionButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            actionButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            actionButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16)
             ])
     }
-
+    
+    func setupActionButton() {
+        CitiesDataService.getStaticCities { (cities, _) in
+            print("setupActionButton cities: ", cities)
+            
+            if cities.filter({ $0.current == true }).count > 0 {
+                self.actionButton.setTitle("Remove the current city", for: .normal)
+                self.actionButton.backgroundColor = .red
+                actionButton.removeTarget(self, action: #selector(addPlaceAction), for: .touchUpInside)
+                actionButton.addTarget(self, action: #selector(removePlaceAction), for: .touchUpInside)
+            } else {
+                self.actionButton.setTitle("A your current city", for: .normal)
+                self.actionButton.backgroundColor = .blue
+                actionButton.removeTarget(self, action: #selector(removePlaceAction), for: .touchUpInside)
+                actionButton.addTarget(self, action: #selector(addPlaceAction), for: .touchUpInside)
+            }
+        }
+    }
+    
+    //Actions
+    @objc func addPlaceAction() {
+        presenter?.locateUser()
+    }
+    
+    @objc func removePlaceAction() {
+        presenter?.removeUsersPlace()
+    }
+    
 }
 
 //Collection view
@@ -101,15 +143,26 @@ extension PlacesViewController: PlacesViewable {
     func display(places: [Place]) {
         self.places = places
         collectionView.reloadData()
+        
+        setupActionButton()
     }
     
     func display(new place: Place) {
-        places[0] = place
-        collectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])        
+        places.insert(place, at: 0)
+        collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+        
+        setupActionButton()
     }
     
     func display(errorMessage: String) {
         print(errorMessage)
+    }
+    
+    func removeCity(id: Int) {
+        places = places.filter({ $0.id != id })
+        collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+        
+        setupActionButton()
     }
     
 }

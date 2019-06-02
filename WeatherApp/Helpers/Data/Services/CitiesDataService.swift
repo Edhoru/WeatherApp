@@ -38,36 +38,34 @@ class CitiesDataService {
         }
     }
     
-    static func getStaticList() {
-        
-    }
-    
-    
-    static func getStaticCities(_ completion: ([City]) -> Void) {
+    static func getStaticCities(_ completion: ([City], _ currentId: Int?) -> Void) {
         let results = City.allObjects()
         
         if results.count > 0 {
             var cities: [City] = []
             
+            var currentCityId: Int?
             for index in 0 ..< results.count {
                 let cityObject = results.object(at: index) as! RLMObject
                 let city = City(object: cityObject)
                 cities.append(city)
+                if city.current == true {
+                    currentCityId = city.id
+                }
             }
             
-            cities.sort { $0.current && !$1.current }
-            completion(cities)
+            completion(cities, currentCityId)
             
         } else {
             let staticCitiesId = [City(id: 2643743, name: "London", country: "GB", current: false),
-                                  City(id: 1850147, name: "Tokyo", country: "JO", current: false)]
+                                  City(id: 1850147, name: "Tokyo", country: "JP", current: false)]
             
             let realm = RLMRealm.default()
             realm.beginWriteTransaction()
             realm.addObjects(staticCitiesId as NSArray)
             try? realm.commitWriteTransaction()
             
-            completion(staticCitiesId)
+            completion(staticCitiesId, nil)
         }
     }
     
@@ -77,10 +75,28 @@ class CitiesDataService {
                         country: nil,
                         current: true)
         
+        let realm = RLMRealm.default()
+        realm.beginWriteTransaction()
+        realm.addOrUpdate(city)
+        try? realm.commitWriteTransaction()
+    }
+    
+    static func deleteCurrentCity(id: Int, _ completion: @escaping (_ deletedId: Int) -> Void) {
         
         let realm = RLMRealm.default()
         realm.beginWriteTransaction()
-        realm.add(city)
+        
+        guard let city = City.allObjects().sortedResults(usingKeyPath: "current", ascending: false).firstObject() as? City else {
+            completion(0)
+            try? realm.commitWriteTransaction()
+            return
+        }
+        let deletedId = city.id
+        realm.delete(city)        
         try? realm.commitWriteTransaction()
+        
+        completion(deletedId)
+        return
     }
+    
 }

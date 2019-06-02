@@ -145,6 +145,8 @@ class DetailsViewController: UIViewController {
         closeSwipeDown.direction = .down
         view.addGestureRecognizer(closeSwipeDown)
         
+        closeButton.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
+        
         view.addSubview(backgroundImageView)
         view.addSubview(closeButton)
         view.addSubview(nameLabel)
@@ -211,8 +213,6 @@ class DetailsViewController: UIViewController {
             cloudLabel.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -Constants.space),
             
             ])
-        
-        closeButton.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
         
         //Add info
         if let weather = place.weather.first {

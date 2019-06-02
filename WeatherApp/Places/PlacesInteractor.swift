@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import Realm
 
 //Presenter -> Interactor
 protocol PlacesInteractorInput {
     func getPlaces()
     func getPlace(lat: Double, lon: Double)
+    func deleteUsersCity()
 }
 
 class PlacesInteractor {
@@ -21,6 +23,7 @@ class PlacesInteractor {
     
     //Properties
     var isProcessingLocation = false
+    var usersCityId: Int = 0
     
 }
 
@@ -40,10 +43,21 @@ extension PlacesInteractor: PlacesInteractorInput {
         
         isProcessingLocation = true
         PlacesDataService.getBy(lat: lat, lon: lon) { (place, error) in
-            self.presenter?.didFetch(place: place)
+            self.isProcessingLocation = false
             
             guard let place = place else { return }
             CitiesDataService.saveCurrentCity(place: place)
+            self.usersCityId = place.id
+            
+            
+            self.presenter?.didFetch(place: place)
         }
     }
+    
+    func deleteUsersCity() {
+        CitiesDataService.deleteCurrentCity(id: usersCityId) { (id) in
+            self.presenter?.didDeleteUsersCity(id: id)
+        }
+    }
+    
 }
