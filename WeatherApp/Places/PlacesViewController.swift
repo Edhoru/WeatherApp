@@ -37,12 +37,19 @@ class PlacesViewController: UIViewController {
         return collectionView
     }()
     
-    let actionButton : UIButton = {
+    let actionButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.textAlignment = .center
         button.setTitleColor(.white, for: .normal)
         return button
+    }()
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
     }()
     
     override func viewDidLoad() {
@@ -60,6 +67,9 @@ class PlacesViewController: UIViewController {
         
         view.addSubview(collectionView)
         view.addSubview(actionButton)
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.startAnimating()
         
         let safeArea = view.safeAreaLayoutGuide
         
@@ -67,19 +77,20 @@ class PlacesViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            
+
             actionButton.heightAnchor.constraint(equalToConstant: 44),
             actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             actionButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             actionButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            actionButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16)
+            actionButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -16)
             ])
     }
     
     func setupActionButton() {
         CitiesDataService.getStaticCities { (cities, _) in
-            print("setupActionButton cities: ", cities)
-            
             if cities.filter({ $0.current == true }).count > 0 {
                 self.actionButton.setTitle("Remove the current city", for: .normal)
                 self.actionButton.backgroundColor = .red
@@ -96,6 +107,7 @@ class PlacesViewController: UIViewController {
     
     //Actions
     @objc func addPlaceAction() {
+        activityIndicator.startAnimating()
         presenter?.locateUser()
     }
     
@@ -145,6 +157,7 @@ extension PlacesViewController: PlacesViewable {
         collectionView.reloadData()
         
         setupActionButton()
+        activityIndicator.stopAnimating()
     }
     
     func display(new place: Place) {
@@ -152,10 +165,20 @@ extension PlacesViewController: PlacesViewable {
         collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
         
         setupActionButton()
+        activityIndicator.stopAnimating()
     }
     
     func display(errorMessage: String) {
-        print(errorMessage)
+        activityIndicator.stopAnimating()
+        let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Try again", style: .default) { (action) in
+            self.presenter?.viewDidLoad()
+            alertController.dismiss(animated: true, completion: {
+                self.activityIndicator.startAnimating()
+            })
+        }
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
     }
     
     func removeCity(id: Int) {
@@ -163,6 +186,7 @@ extension PlacesViewController: PlacesViewable {
         collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
         
         setupActionButton()
+        activityIndicator.stopAnimating()
     }
     
 }
