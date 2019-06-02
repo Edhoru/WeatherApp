@@ -30,6 +30,7 @@
 		469E76BC22A2CB5F00987EFB /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E76BB22A2CB5F00987EFB /* Dictionary.swift */; };
 		469E76BE22A2D18200987EFB /* PlacesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E76BD22A2D18200987EFB /* PlacesList.swift */; };
 		469E76C022A323DD00987EFB /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E76BF22A323DD00987EFB /* UserLocation.swift */; };
+		469E76C222A3A28C00987EFB /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469E76C122A3A28C00987EFB /* UIColor.swift */; };
 		46D93C9322A0F3A8004C7BE5 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D93C9222A0F3A8004C7BE5 /* City.swift */; };
 		46E0858222A0B5AA000F1F95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E0858122A0B5AA000F1F95 /* AppDelegate.swift */; };
 		46E0858922A0B5AC000F1F95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46E0858822A0B5AC000F1F95 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		469E76BB22A2CB5F00987EFB /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		469E76BD22A2D18200987EFB /* PlacesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesList.swift; sourceTree = "<group>"; };
 		469E76BF22A323DD00987EFB /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
+		469E76C122A3A28C00987EFB /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		46D93C9222A0F3A8004C7BE5 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		46E0857E22A0B5AA000F1F95 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46E0858122A0B5AA000F1F95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				469E76BB22A2CB5F00987EFB /* Dictionary.swift */,
+				469E76C122A3A28C00987EFB /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				469E76BC22A2CB5F00987EFB /* Dictionary.swift in Sources */,
 				4675225122A0C24C00F9A4E2 /* PlacesInteractor.swift in Sources */,
 				469E76B722A2C11300987EFB /* PlaceCollectionViewCell.swift in Sources */,
+				469E76C222A3A28C00987EFB /* UIColor.swift in Sources */,
 				4675225522A0C28800F9A4E2 /* Place.swift in Sources */,
 				4675224D22A0C24C00F9A4E2 /* PlacesBuilder.swift in Sources */,
 				469E76C022A323DD00987EFB /* UserLocation.swift in Sources */,

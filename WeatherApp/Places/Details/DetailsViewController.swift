@@ -24,6 +24,14 @@ class DetailsViewController: UIViewController {
     let place: Place
     
     //UI
+    let backgroundImageView: UIImageView = {
+        let imageView = UIImageView(frame: .zero)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
     let closeButton : UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -35,22 +43,16 @@ class DetailsViewController: UIViewController {
     let nameLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 38)
         return label
     }()
     
-    let iconImageView: UIImageView = {
-        let imageView = UIImageView(frame: .zero)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
     let temperatureLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 76)
         return label
@@ -59,6 +61,7 @@ class DetailsViewController: UIViewController {
     let temperatureMinLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.textAlignment = .center
         return label
     }()
@@ -66,6 +69,7 @@ class DetailsViewController: UIViewController {
     let temperatureMaxLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.textAlignment = .center
         return label
     }()
@@ -73,6 +77,7 @@ class DetailsViewController: UIViewController {
     let descriptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -81,6 +86,7 @@ class DetailsViewController: UIViewController {
     let windKeyLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.textAlignment = .center
         label.text = "Wind"
         return label
@@ -89,6 +95,7 @@ class DetailsViewController: UIViewController {
     let windLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.textAlignment = .center
         return label
     }()
@@ -96,6 +103,7 @@ class DetailsViewController: UIViewController {
     let cloudKeyLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.textAlignment = .center
         label.text = "Cloud"
         return label
@@ -104,6 +112,7 @@ class DetailsViewController: UIViewController {
     let cloudLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.textAlignment = .center
         return label
     }()
@@ -125,7 +134,7 @@ class DetailsViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .red
+        view.backgroundColor = .background
         
         let closeSwipeRight = UISwipeGestureRecognizer(target: self, action: #selector(closeAction))
         closeSwipeRight.direction = .right
@@ -135,9 +144,9 @@ class DetailsViewController: UIViewController {
         closeSwipeDown.direction = .down
         view.addGestureRecognizer(closeSwipeDown)
         
+        view.addSubview(backgroundImageView)
         view.addSubview(closeButton)
         view.addSubview(nameLabel)
-        view.addSubview(iconImageView)
         view.addSubview(temperatureLabel)
         view.addSubview(temperatureMinLabel)
         view.addSubview(temperatureMaxLabel)
@@ -150,6 +159,11 @@ class DetailsViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            
             closeButton.heightAnchor.constraint(equalToConstant: Constants.closeWidth),
             closeButton.widthAnchor.constraint(equalToConstant: Constants.closeWidth),
             closeButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: Constants.space / 2),
@@ -158,11 +172,6 @@ class DetailsViewController: UIViewController {
             nameLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 16),
             nameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Constants.space),
-            
-            iconImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
-            iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor),
-            iconImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constants.space),
-            iconImageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Constants.space),
             
             temperatureLabel.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 ),
             temperatureLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 ),
@@ -213,16 +222,22 @@ class DetailsViewController: UIViewController {
                     self.iconImageView.image = image
                 }
             }
-            
-            nameLabel.text = place.name
-            temperatureLabel.text = "\(Int(place.main.temp))º"
-            temperatureMinLabel.text = "\(Int(place.main.temp))º"
-            temperatureMaxLabel.text = "\(Int(place.main.temp))º"
             descriptionLabel.text = weather.description
-            windLabel.text = "\(place.wind.deg) - \(place.wind.speed)"
-            cloudLabel.text = "\(place.clouds.all)"
             
+            let iconName = String(weather.icon.dropLast())
+            if let image = UIImage(named: weather.icon) {
+                backgroundImageView.image = image
+            } else if let image = UIImage(named: iconName) {
+                backgroundImageView.image = image
+            }
         }
+        
+        nameLabel.text = place.name
+        temperatureLabel.text = "\(Int(place.main.temp))º"
+        temperatureMinLabel.text = "\(Int(place.main.temp))º"
+        temperatureMaxLabel.text = "\(Int(place.main.temp))º"
+        windLabel.text = "\(place.wind.speed)"
+        cloudLabel.text = "\(place.clouds.all)"
         
     }
     

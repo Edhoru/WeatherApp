@@ -9,6 +9,6 @@
 import Foundation
 
 struct Wind: Codable {
-    let deg: Float
+    let deg: Float?
     let speed: Float
 }
